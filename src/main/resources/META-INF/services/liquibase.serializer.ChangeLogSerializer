@@ -1,1 +1,1 @@
-liquibase.serializer.ext.GroovyChangeLogSerializer
+liquibase.serializer.ext.KotlinChangeLogSerializer

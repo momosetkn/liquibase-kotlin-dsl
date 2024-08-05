@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.helper
+package org.liquibase.kotlin.helper
 
 /**
  * This class is an Resource Comparator that will result in changelogs being returned in reverse

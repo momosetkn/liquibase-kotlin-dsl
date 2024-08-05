@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import liquibase.change.core.AddForeignKeyConstraintChange
 import liquibase.change.core.AddPrimaryKeyChange
@@ -31,16 +31,16 @@ import static org.junit.Assert.assertTrue
  * This is one of several classes that test the creation of refactoring changes for ChangeSets. This
  * particular class tests changes that deal with referential integrity.
  * <p>
- * Since the Groovy DSL parser is meant to act as a pass-through for Liquibase itself, it doesn't do
+ * Since the Kotlin DSL parser is meant to act as a pass-through for Liquibase itself, it doesn't do
  * much in the way of error checking.  For example, we aren't concerned with whether or not required
  * attributes are present - we leave that to Liquibase itself.  In general, each change will have 3
  * kinds of tests:<br>
  * <ol>
  * <li>A test with an empty parameter map, and if supported, an empty closure. This kind of test
- * will make sure that the Groovy parser doesn't introduce any unintended attribute defaults for a
+ * will make sure that the Kotlin parser doesn't introduce any unintended attribute defaults for a
  * change.</li>
  * <li>A test that sets all the attributes known to be supported by Liquibase at this time.  This
- * makes sure that the Groovy parser will send any given groovy attribute to the correct place in
+ * makes sure that the Kotlin parser will send any given groovy attribute to the correct place in
  * Liquibase.  For changes that allow a child closure, this test will include just enough in the
  * closure to make sure it gets processed, and that the right kind of closure is called.</li>
  * <li>Some tests take columns or a where clause in a child closure.  The same closure handles both,

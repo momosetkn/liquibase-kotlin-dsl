@@ -12,13 +12,13 @@
  * the License.
  */
 
-package org.liquibase.groovy.serialize
+package org.liquibase.kotlin.serialize
 
 import liquibase.resource.DirectoryResourceAccessor
 import liquibase.serializer.ChangeLogSerializerFactory
 
 import org.junit.Before
-import liquibase.serializer.ext.GroovyChangeLogSerializer
+import KotlinChangeLogSerializer
 import java.text.SimpleDateFormat
 import java.sql.Timestamp
 
@@ -38,7 +38,7 @@ class SerializerTests {
     void registerSerializer() {
         resourceAccessor = new DirectoryResourceAccessor(new File('.'))
         serializerFactory = ChangeLogSerializerFactory.instance
-        ChangeLogSerializerFactory.getInstance().register(new GroovyChangeLogSerializer())
+        ChangeLogSerializerFactory.getInstance().register(new KotlinChangeLogSerializer())
         serializer = serializerFactory.getSerializer('groovy')
     }
 

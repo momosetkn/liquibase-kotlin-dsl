@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.custom
+package org.liquibase.kotlin.custom
 
 import liquibase.change.custom.CustomSqlChange
 import liquibase.database.Database
@@ -23,7 +23,7 @@ import liquibase.statement.core.RawSqlStatement
 /**
  * A trivial liquibase CustomSqlChange that will be added to the DSL through groovy metaprogramming
  *
- * @see groovy.runtime.metaclass.org.liquibase.groovy.delegate.ChangeSetDelegateMetaClass
+ * @see groovy.runtime.metaclass.org.liquibase.kotlin.delegate.ChangeSetDelegateMetaClass
  */
 class MyCustomSqlChange implements CustomSqlChange {
 

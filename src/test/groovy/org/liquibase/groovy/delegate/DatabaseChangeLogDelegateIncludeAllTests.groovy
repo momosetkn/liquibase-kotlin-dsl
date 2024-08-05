@@ -11,14 +11,14 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import liquibase.changelog.ChangeLogParameters
 import liquibase.changelog.DatabaseChangeLog
 import liquibase.exception.ChangeLogParseException
 import liquibase.exception.LiquibaseException
 import liquibase.parser.ChangeLogParserFactory
-import liquibase.parser.ext.GroovyLiquibaseChangeLogParser
+import KotlinLiquibaseChangeLogParser
 import liquibase.precondition.Precondition
 import liquibase.precondition.core.DBMSPrecondition
 import liquibase.precondition.core.PreconditionContainer
@@ -78,7 +78,7 @@ class DatabaseChangeLogDelegateIncludeAllTests {
         def f = new File(".")
         resourceAccessor = new DirectoryResourceAccessor(new File(f.absolutePath))
         parserFactory = ChangeLogParserFactory.instance
-        ChangeLogParserFactory.getInstance().register(new GroovyLiquibaseChangeLogParser())
+        ChangeLogParserFactory.getInstance().register(new KotlinLiquibaseChangeLogParser())
         // make sure we start with clean temporary directories before each test
         TMP_CHANGELOG_DIR.deleteDir()
         INCLUDED_CHANGELOG_DIR.mkdirs()
@@ -322,7 +322,7 @@ databaseChangeLog {
     dbms(type: 'mysql')
   }
   includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
-             filter: 'org.liquibase.groovy.helper.IncludeAllFirstOnlyFilter')
+             filter: 'org.liquibase.kotlin.helper.IncludeAllFirstOnlyFilter')
   changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
@@ -360,7 +360,7 @@ databaseChangeLog {
     dbms(type: 'mysql')
   }
   includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
-             filter: 'org.liquibase.groovy.helper.NoSuchClass')
+             filter: 'org.liquibase.kotlin.helper.NoSuchClass')
   changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
@@ -386,7 +386,7 @@ databaseChangeLog {
     dbms(type: 'mysql')
   }
   includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
-             filter: 'org.liquibase.groovy.helper.ReversingComparator')
+             filter: 'org.liquibase.kotlin.helper.ReversingComparator')
   changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
@@ -453,7 +453,7 @@ databaseChangeLog {
     dbms(type: 'mysql')
   }
   includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
-             resourceComparator: 'org.liquibase.groovy.helper.ReversingComparator')
+             resourceComparator: 'org.liquibase.kotlin.helper.ReversingComparator')
   changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
@@ -492,7 +492,7 @@ databaseChangeLog {
     dbms(type: 'mysql')
   }
   includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
-             resourceComparator: 'org.liquibase.groovy.helper.NoSuchClass')
+             resourceComparator: 'org.liquibase.kotlin.helper.NoSuchClass')
   changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
@@ -518,7 +518,7 @@ databaseChangeLog {
     dbms(type: 'mysql')
   }
   includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
-             resourceComparator: 'org.liquibase.groovy.helper.IncludeAllFirstOnlyFilter')
+             resourceComparator: 'org.liquibase.kotlin.helper.IncludeAllFirstOnlyFilter')
   changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
@@ -580,7 +580,7 @@ databaseChangeLog {
     dbms(type: 'mysql')
   }
   includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
-             filter: 'org.liquibase.groovy.helper.IncludeAllFirstOnlyFilter')
+             filter: 'org.liquibase.kotlin.helper.IncludeAllFirstOnlyFilter')
   changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
@@ -616,7 +616,7 @@ databaseChangeLog {
     dbms(type: 'mysql')
   }
   includeAll(path: '${INCLUDED_CHANGELOG_PATH}', errorIfMissingOrEmpty: false,
-             filter: 'org.liquibase.groovy.helper.IncludeAllFirstOnlyFilter')
+             filter: 'org.liquibase.kotlin.helper.IncludeAllFirstOnlyFilter')
   changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
@@ -1082,7 +1082,7 @@ databaseChangeLog {
     }
     /**
      * Helper method that builds a changeSet from the given closure.  Tests will use this to test
-     * parsing the various closures that make up the Groovy DSL.
+     * parsing the various closures that make up the Kotlin DSL.
      * @param closure the closure containing changes to parse.
      * @return the changeSet, with parsed changes from the closure added.
      */

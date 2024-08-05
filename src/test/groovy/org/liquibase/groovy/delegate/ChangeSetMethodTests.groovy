@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import liquibase.change.CheckSum
 import liquibase.change.core.AddColumnChange
@@ -205,7 +205,7 @@ ALTER TABLE monkey_table DROP COLUMN angry;"""
 
     /**
      * This is a wacky combination. Let's use a refactoring paired with raw SQL.  I don't know what
-     * the XML parser does, but the Groovy parser can handle it.  In this case, we expect a resource
+     * the XML parser does, but the Kotlin parser can handle it.  In this case, we expect a resource
      * accessor to be set in the change based rollback, but not the SQL based one.
      */
     @Test

@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import liquibase.exception.ChangeLogParseException
 
@@ -25,31 +25,34 @@ import liquibase.exception.ChangeLogParseException
  * to the caller.
  */
 class CommentDelegate {
-    String comment = null
-    def changeSetId = '<unknown>' // used for error messages
-    def changeName = '<unknown>' // used for error messages
+    private var comment: String? = null
+    private val changeSetId = "<unknown>" // used for error messages
+    private val changeName = "<unknown>" // used for error messages
 
     /**
      * Process a comment in the closure
      * @param value the value of the comment.
      */
-    void comment(String value) {
-        if ( comment != null ) {
-            comment = "${comment} ${value}"
-        } else {
-            this.comment = value
-        }
+    fun comment(value: String) {
+        comment =
+            if (comment != null) {
+                "$comment $value"
+            } else {
+                value
+            }
     }
 
     /**
-     * Groovy calls methodMissing when it can't find a matching method to call. We use it to tell
+     * Kotlin calls methodMissing when it can't find a matching method to call. We use it to tell
      * the user which changeSet had the invalid element.
-     * @param name the name of the method Groovy wanted to call.
+     * @param name the name of the method Kotlin wanted to call.
      * @param args the original arguments to that method.
      */
-    def methodMissing(String name, args) {
-        throw new ChangeLogParseException("ChangeSet '${changeSetId}': '${name}' is not a valid child element of ${changeName} changes")
-    }
-
+    fun methodMissing(
+        name: String,
+        args: Any,
+    ): Unit =
+        throw ChangeLogParseException(
+            "ChangeSet '$changeSetId': '$name' is not a valid child element of $changeName changes",
+        )
 }
-

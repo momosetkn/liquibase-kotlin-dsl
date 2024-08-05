@@ -5,7 +5,7 @@ databaseChangeLog {
         dbms(type: 'mysql')
     }
     includeAllSql(path: 'sql', relativeToChangelogFile: true,
-            filter: 'org.liquibase.groovy.helper.IncludeAllFirstOnlyFilter')
+            filter: 'org.liquibase.kotlin.helper.IncludeAllFirstOnlyFilter')
     changeSet(author: 'ssaliman', id: 'root-change-set') {
         addColumn(tableName: 'monkey') {
             column(name: 'emotion', type: 'varchar(50)')

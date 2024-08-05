@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import liquibase.resource.DirectoryResourceAccessor
 import org.junit.After
@@ -83,7 +83,7 @@ class ChangeSetTests {
 
     /**
      * Helper method that builds a changeSet from the given closure.  Tests will use this to test
-     * parsing the various closures that make up the Groovy DSL.
+     * parsing the various closures that make up the Kotlin DSL.
      * @param closure the closure containing changes to parse.
      * @return the changeSet, with parsed changes from the closure added.
      */

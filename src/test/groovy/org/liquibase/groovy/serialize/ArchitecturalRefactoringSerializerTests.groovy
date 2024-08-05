@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.serialize
+package org.liquibase.kotlin.serialize
 
 import org.junit.Test
 import static org.junit.Assert.*

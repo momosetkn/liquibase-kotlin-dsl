@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import liquibase.change.ConstraintsConfig
 import liquibase.changelog.ChangeLogParameters
@@ -121,7 +121,7 @@ class ArgumentDelegateTests {
 
     /**
      * Try calling an invalid method in the closure.  Make sure we get our ChangeLogParseException
-     * and not Groovy's standard MethodMissingException.
+     * and not Kotlin's standard MethodMissingException.
      */
     @Test(expected = ChangeLogParseException)
     void invalidClosure() {

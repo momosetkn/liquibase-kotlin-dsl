@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import liquibase.exception.ChangeLogParseException
 import org.junit.After
@@ -25,9 +25,9 @@ import liquibase.changelog.ChangeLogParameters
 import liquibase.changelog.DatabaseChangeLog
 
 /**
- * This class tests that a constraint closure can be parsed correctly by the Groovy DSL.  As with
+ * This class tests that a constraint closure can be parsed correctly by the Kotlin DSL.  As with
  * the other tests, we are not interested in whether or not we end up with a valid constraint, just
- * whether or not we faithfully created a Liquibase object from the Groovy closure we were given.
+ * whether or not we faithfully created a Liquibase object from the Kotlin closure we were given.
  * We defer to Liquibase on matters of validity.  Once again, Liquibase has some options that are
  * not documented, so we'll test them.
  *

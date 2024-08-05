@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.serialize
+package org.liquibase.kotlin.serialize
 
 import org.junit.Test
 import liquibase.change.ColumnConfig
@@ -92,7 +92,7 @@ class ColumnSerializerTests extends SerializerTests {
 
     @Test
     void buildStringColumnWithConstraintsInMap() {
-        // This is an unprofessional comment, but: Groovy is *awesome*
+        // This is an unprofessional comment, but: Kotlin is *awesome*
         def columnConfig = [
                 name        : 'column-name',
                 type        : 'varchar',

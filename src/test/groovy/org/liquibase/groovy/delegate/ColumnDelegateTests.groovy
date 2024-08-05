@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import liquibase.change.AddColumnConfig
 import liquibase.change.Change

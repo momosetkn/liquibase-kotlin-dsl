@@ -11,11 +11,11 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy
+package org.liquibase.kotlin
 
 import liquibase.resource.DirectoryResourceAccessor
 import liquibase.serializer.ChangeLogSerializerFactory
-import liquibase.serializer.ext.GroovyChangeLogSerializer
+import KotlinChangeLogSerializer
 
 import org.junit.Test
 import org.junit.Before
@@ -27,7 +27,7 @@ import static org.junit.Assert.*
  *
  * @author Tim Berglund
  */
-class GroovySerializerTests {
+class KotlinSerializerTests {
     def resourceAccessor
     def serializerFactory
 
@@ -36,13 +36,13 @@ class GroovySerializerTests {
     void registerSerializer() {
         resourceAccessor = new DirectoryResourceAccessor(new File('.'))
         serializerFactory = ChangeLogSerializerFactory.instance
-        ChangeLogSerializerFactory.getInstance().register(new GroovyChangeLogSerializer())
+        ChangeLogSerializerFactory.getInstance().register(new KotlinChangeLogSerializer())
     }
 
 
     @Test
-    void onlyGroovyFilesAreSupported() {
-        def serializer = new GroovyChangeLogSerializer()
+    void onlyKotlinFilesAreSupported() {
+        def serializer = new KotlinChangeLogSerializer()
         assertArrayEquals(['groovy'] as String[], serializer.validFileExtensions)
     }
 

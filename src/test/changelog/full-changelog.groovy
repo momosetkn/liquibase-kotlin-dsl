@@ -54,7 +54,7 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
     changeSet(id: 'first', author: 'stevesaliman', dbms: 'mysql', runAlways: true, runOnChange: false, contextFilter: '', runInTransaction: true, failOnError: false) {
-        // Comments supported through Groovy
+        // Comments supported through Kotlin
         comment "Liquibase can be aware of this comment"
 
         preConditions {

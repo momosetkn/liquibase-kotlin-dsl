@@ -12,77 +12,61 @@
  * the License.
  */
 
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
-import org.liquibase.groovy.change.GroovyChange
+import KotlinChange
+import groovy.sql.Sql
 import liquibase.changelog.ChangeSet
 import liquibase.database.Database
 import liquibase.database.DatabaseConnection
 import java.sql.Connection
-import groovy.sql.Sql
-
 
 /**
  * <p></p>
  *
  * @author Tim Berglund
  */
-class GroovyChangeDelegate {
-    GroovyChange change
-    Closure initClosure
-    Closure validateClosure
-    Closure changeClosure
-    Closure rollbackClosure
-    String confirmationMessage
-    String checksum
+class KotlinChangeDelegate(
+    val groovyChangeClosure: Closure<*>,
+    val changeSet: ChangeSet,
+) {
+    lateinit var change: KotlinChange
+    lateinit var initClosure: Closure<*>
+    lateinit var validateClosure: Closure<*>
+    lateinit var changeClosure: Closure<*>
+    lateinit var rollbackClosure: Closure<*>
+    var confirmationMessage: String = ""
+    var checksum: String = ""
+    lateinit var database: Database
+    lateinit var databaseConnection: DatabaseConnection
+    lateinit var connection: Connection
+    lateinit var sql: Sql
 
-    ChangeSet changeSet
-    Database database
-    DatabaseConnection databaseConnection
-    Connection connection
-    Sql sql
-
-
-    GroovyChangeDelegate(Closure groovyChangeClosure,
-                         ChangeSet changeSet) {
-        this.changeSet = changeSet
-    }
-
-
-    def init(Closure c) {
+    fun init(c: Closure<*>) {
         c.delegate = this
         initClosure = c
     }
 
-
-    def validate(Closure c) {
+    fun validate(c: Closure<*>) {
         c.delegate = this
         validateClosure = c
     }
 
-
-    def change(Closure c) {
+    fun change(c: Closure<*>) {
         c.delegate = this
         changeClosure = c
     }
 
-
-    def rollback(Closure c) {
+    fun rollback(c: Closure<*>) {
         c.delegate = this
         rollbackClosure = c
     }
 
-
-    def confirm(String message) {
-        c.delegate = this
+    fun confirm(message: String) {
         confirmationMessage = message
     }
 
-
-    def checkSum(String checkSum) {
-        c.delegate = this
+    fun checkSum(checkSum: String) {
         this.checksum = checkSum
     }
-
 }
-

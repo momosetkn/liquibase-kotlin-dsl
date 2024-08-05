@@ -12,14 +12,16 @@
  * the License.
  */
 
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
+
+import liquibase.changelog.DatabaseChangeLog
 
 /**
  * Little utility with helper methods that all the delegates can use.
  *
  * @author Steven C. Saliman
  */
-class DelegateUtil {
+object DelegateUtil {
     /**
      * Helper method that expands a text expression, replacing variables inside strings with their
      * values from the database change log parameters.
@@ -27,21 +29,27 @@ class DelegateUtil {
      * @param databaseChangeLog the database change log
      * @return the text, after substitutions have been made.
      */
-    static def expandExpressions(expression, databaseChangeLog) {
+    fun expandExpressions(
+        expression: Any?,
+        databaseChangeLog: DatabaseChangeLog,
+    ): String? {
         // Don't expand a null into the text "null", just return null
-        if ( expression == null ) {
+        if (expression == null) {
             return null
         }
 
         // Don't try to expand if we have no parameters.
-        if ( databaseChangeLog.changeLogParameters == null ) {
-            return expression
+        if (databaseChangeLog.changeLogParameters == null) {
+            return expression.toString()
         }
-        return databaseChangeLog.changeLogParameters.expandExpressions(expression.toString(), databaseChangeLog)
+        return databaseChangeLog.changeLogParameters.expandExpressions(
+            expression.toString(),
+            databaseChangeLog,
+        )
     }
 
     /**
-     * Helper method to determine the truth of a value.  We need this because Groovy's
+     * Helper method to determine the truth of a value.  We need this because Kotlin's
      * {@code asBoolean} method for Strings treats any non-empty string as true, including the
      * string whose contents are "false".  This means that a property whose value is "false" would
      * be set to true in a simple if statement.
@@ -56,13 +64,16 @@ class DelegateUtil {
      * @param defaultValue the default value to use if there is no value given.
      * @return whether or not the given value is "true", or the defaultValue if no value is given.
      */
-    static boolean parseTruth(value, defaultValue) {
-        if ( value == null ) {
+    fun parseTruth(
+        value: Any?,
+        defaultValue: Boolean,
+    ): Boolean {
+        if (value == null) {
             return defaultValue
         }
-        if ( value instanceof String ) {
+        if (value is String) {
             return value.toBoolean()
         }
-        return value.asBoolean()
+        return value as? Boolean ?: defaultValue
     }
 }

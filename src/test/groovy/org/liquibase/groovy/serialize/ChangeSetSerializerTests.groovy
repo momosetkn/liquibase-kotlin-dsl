@@ -11,10 +11,10 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.serialize
+package org.liquibase.kotlin.serialize
 
 import liquibase.changelog.DatabaseChangeLog
-import org.liquibase.groovy.serialize.SerializerTests
+import org.liquibase.kotlin.serialize.SerializerTests
 import org.junit.Test
 import static org.junit.Assert.*
 import liquibase.changelog.ChangeSet

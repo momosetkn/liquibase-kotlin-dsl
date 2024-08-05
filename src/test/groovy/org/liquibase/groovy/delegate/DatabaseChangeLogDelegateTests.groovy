@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import liquibase.change.visitor.AddColumnChangeVisitor
 import liquibase.changelog.ChangeLogParameters
@@ -20,7 +20,7 @@ import liquibase.database.ObjectQuotingStrategy
 import liquibase.exception.ChangeLogParseException
 import liquibase.parser.ChangeLogParser
 import liquibase.parser.ChangeLogParserFactory
-import liquibase.parser.ext.GroovyLiquibaseChangeLogParser
+import KotlinLiquibaseChangeLogParser
 import liquibase.precondition.Precondition
 import liquibase.precondition.core.DBMSPrecondition
 import liquibase.precondition.core.PreconditionContainer
@@ -69,7 +69,7 @@ class DatabaseChangeLogDelegateTests {
         def f = new File(".")
         resourceAccessor = new DirectoryResourceAccessor(new File(f.absolutePath))
         parserFactory = ChangeLogParserFactory.instance
-        ChangeLogParserFactory.getInstance().register(new GroovyLiquibaseChangeLogParser())
+        ChangeLogParserFactory.getInstance().register(new KotlinLiquibaseChangeLogParser())
         // make sure we start with clean temporary directories before each test
         TMP_CHANGELOG_DIR.deleteDir()
         TMP_CHANGELOG_DIR.mkdirs()
@@ -88,7 +88,7 @@ class DatabaseChangeLogDelegateTests {
     void parseEmptyChangelog() {
         def parser = parserFactory.getParser(EMPTY_CHANGELOG, resourceAccessor)
 
-        assertNotNull "Groovy changelog parser was not found", parser
+        assertNotNull "Kotlin changelog parser was not found", parser
 
         def changeLog = parser.parse(EMPTY_CHANGELOG, new ChangeLogParameters(), resourceAccessor)
         assertNotNull "Parsed DatabaseChangeLog was null", changeLog
@@ -100,7 +100,7 @@ class DatabaseChangeLogDelegateTests {
     void parseSimpleChangelog() {
         def parser = parserFactory.getParser(SIMPLE_CHANGELOG, resourceAccessor)
 
-        assertNotNull "Groovy changelog parser was not found", parser
+        assertNotNull "Kotlin changelog parser was not found", parser
 
         def changeLog = parser.parse(SIMPLE_CHANGELOG, null, resourceAccessor)
         assertNotNull "Parsed DatabaseChangeLog was null", changeLog
@@ -120,7 +120,7 @@ class DatabaseChangeLogDelegateTests {
     void parseFullChangelog() {
         def parser = parserFactory.getParser(FULL_CHANGELOG, resourceAccessor)
 
-        assertNotNull "Groovy changelog parser was not found", parser
+        assertNotNull "Kotlin changelog parser was not found", parser
 
         def changeLog = parser.parse(FULL_CHANGELOG, new ChangeLogParameters(), resourceAccessor)
         assertNotNull "Parsed DatabaseChangeLog was null", changeLog
@@ -764,7 +764,7 @@ emotion=angry
 
     /**
      * Helper method that builds a changeSet from the given closure.  Tests will use this to test
-     * parsing the various closures that make up the Groovy DSL.
+     * parsing the various closures that make up the Kotlin DSL.
      * @param closure the closure containing changes to parse.
      * @return the changeSet, with parsed changes from the closure added.
      */
@@ -774,7 +774,7 @@ emotion=angry
 
     /**
      * Helper method that builds a changeSet from the given closure.  Tests will use this to test
-     * parsing the various closures that make up the Groovy DSL.
+     * parsing the various closures that make up the Kotlin DSL.
      * @param closure the closure containing changes to parse.
      * @return the changeSet, with parsed changes from the closure added.
      */

@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import org.junit.Test
 
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue
 
 /**
  * Tests for the static {@link DelegateUtil} class. This mostly validates our assumptions about how
- * Groovy truthiness works.
+ * Kotlin truthiness works.
  *
  * @author Steven C. Saliman
  */

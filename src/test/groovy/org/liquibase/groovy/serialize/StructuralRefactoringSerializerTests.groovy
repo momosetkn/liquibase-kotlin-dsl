@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.liquibase.groovy.serialize
+package org.liquibase.kotlin.serialize
 
 import liquibase.change.core.AddColumnChange
 

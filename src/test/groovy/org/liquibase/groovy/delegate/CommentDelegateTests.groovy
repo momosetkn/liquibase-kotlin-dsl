@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import liquibase.exception.ChangeLogParseException
 import org.junit.Test
@@ -67,7 +67,7 @@ class CommentDelegateTests {
 
     /**
      * Try calling an invalid method in the closure.  Make sure we get our ChangeLogParseException
-     * and not Groovy's standard MethodMissingException.
+     * and not Kotlin's standard MethodMissingException.
      */
     @Test(expected = ChangeLogParseException)
     void invalidClosure() {

@@ -20,4 +20,8 @@ dependencies {
     // db-migration
     implementation("org.liquibase:liquibase-core:4.27.0")
     implementation("info.picocli:picocli:4.7.6")
+    implementation(kotlin("stdlib-jdk8"))
+}
+kotlin {
+    jvmToolchain(21)
 }

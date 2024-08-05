@@ -11,15 +11,15 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package groovy.runtime.metaclass.org.liquibase.groovy.delegate
+package groovy.runtime.metaclass.org.liquibase.kotlin.delegate
 
 
 import org.codehaus.groovy.runtime.metaclass.ClosureMetaMethod.AnonymousMetaMethod
-import org.liquibase.groovy.change.CustomProgrammaticChangeWrapper
-import org.liquibase.groovy.custom.MyCustomSqlChange
+import CustomProgrammaticChangeWrapper
+import org.liquibase.kotlin.custom.MyCustomSqlChange
 
 /**
- * This defines an ExpandoMetaClass on org.liquibase.groovy.delegate.ChangeSetDelegate so that we
+ * This defines an ExpandoMetaClass on org.liquibase.kotlin.delegate.ChangeSetDelegate so that we
  * can manipulate the class at runtime to add new methods.  In this example, we are adding the
  * myCustomSqlChange which will add the MyCustomSqlChange and wrap it in the
  * CustomProgrammaticChangeWrapper so it conforms to the liquibase API.

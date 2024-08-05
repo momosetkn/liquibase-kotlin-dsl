@@ -11,18 +11,18 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import liquibase.exception.ChangeLogParseException
-import org.liquibase.groovy.helper.ExtensionChange
+import org.liquibase.kotlin.helper.ExtensionChange
 
 import static org.junit.Assert.*
 import liquibase.change.core.RawSQLChange
 
 import org.junit.Test
 
-import org.liquibase.groovy.change.CustomProgrammaticChangeWrapper
-import org.liquibase.groovy.custom.MyCustomSqlChange
+import CustomProgrammaticChangeWrapper
+import org.liquibase.kotlin.custom.MyCustomSqlChange
 
 
 /**

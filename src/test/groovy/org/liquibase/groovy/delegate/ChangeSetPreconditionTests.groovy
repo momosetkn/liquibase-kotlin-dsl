@@ -12,9 +12,9 @@
  * the License.
  */
 
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
-import org.liquibase.groovy.delegate.ChangeSetTests
+import org.liquibase.kotlin.delegate.ChangeSetTests
 import org.junit.Test
 import static org.junit.Assert.*
 

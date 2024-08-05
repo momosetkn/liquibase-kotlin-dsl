@@ -1,1 +1,1 @@
-liquibase.parser.ext.GroovyLiquibaseChangeLogParser
+liquibase.parser.ext.KotlinLiquibaseChangeLogParser

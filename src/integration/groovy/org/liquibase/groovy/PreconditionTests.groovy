@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.liquibase.groovy
+package org.liquibase.kotlin
 
 import org.junit.Before
 

@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.liquibase.groovy.delegate
+package org.liquibase.kotlin.delegate
 
 import org.junit.Test
 import org.junit.Ignore
@@ -23,11 +23,11 @@ import liquibase.resource.DirectoryResourceAccessor
  *
  * @author Tim Berglund
  */
-class GroovyChangeDelegateTests extends ChangeSetTests {
+class KotlinChangeDelegateTests extends ChangeSetTests {
 
     @Ignore
     @Test
-    void basicGroovyChangeSet() {
+    void basicKotlinChangeSet() {
 
         def initWasCalled = false
         def validateWasCalled = false
@@ -73,7 +73,7 @@ class GroovyChangeDelegateTests extends ChangeSetTests {
                 assertNotNull databaseConnection
                 assertNotNull connection
                 assertNotNull sql
-                confirm 'Basic GroovyChange executed'
+                confirm 'Basic KotlinChange executed'
                 checksum 'd0763edaa9d9bdx`2a9516280e9044d885'
             }
         }
