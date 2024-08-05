@@ -14,16 +14,16 @@
 
 package liquibase.serializer.ext
 
-import liquibase.serializer.ChangeLogSerializer
-import liquibase.changelog.ChangeSet
 import liquibase.change.Change
+import liquibase.change.ColumnConfig
+import liquibase.change.ConstraintsConfig
+import liquibase.changelog.ChangeSet
+import liquibase.serializer.ChangeLogSerializer
 import liquibase.serializer.LiquibaseSerializable
 import liquibase.sql.visitor.SqlVisitor
-import liquibase.change.ColumnConfig
 import liquibase.util.ISODateFormat
-import liquibase.change.ConstraintsConfig
-import java.sql.Timestamp
 
+import java.sql.Timestamp
 
 /**
  * This class is the main Groovy DSL serializer.  It creates Groovy changelogs for liquibase.  It
@@ -41,7 +41,7 @@ class GroovyChangeLogSerializer implements ChangeLogSerializer {
      */
     @Override
     String[] getValidFileExtensions() {
-        ['groovy']
+        ['kts']
     }
 
     @Override
@@ -179,7 +179,7 @@ ${renderedChildren}
         } else if ( textBody ) {
             serializedChange = """\
 ${serializedChange} {
-  ''' ${textBody} '''
+    " ${textBody} "
 }"""
         }
 
@@ -271,7 +271,7 @@ ${renderedChildren}
         } else if ( textBody ) {
             serializedChange = """\
 ${serializedChange} {
-  ''' ${textBody} '''
+    " ${textBody} "
 }"""
         }
 
@@ -284,7 +284,7 @@ ${serializedChange} {
      * @return the indented text
      */
     private indent(text) {
-        text?.readLines().collect { line -> "  ${line}" }.join('\n')
+        text?.readLines().collect { line -> "    ${line}" }.join('\n')
     }
 
     /**
@@ -313,12 +313,12 @@ ${serializedChange} {
                         break
 
                     case Timestamp:
-                        propertyString = "'''${isoFormat.format((Timestamp) propertyValue)}'''"
+                        propertyString = "\"${isoFormat.format((Timestamp) propertyValue)}\""
                         break
 
                     default:
                         if ( propertyValue ) {
-                            propertyString = "'''${propertyValue.toString()}'''"
+                            propertyString = "\"${propertyValue.toString()}\""
                         }
                         break
                 }
