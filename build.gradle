@@ -33,6 +33,7 @@ if ( isReleaseVersion ) {
 repositories {
 	mavenCentral()
 	mavenLocal()
+    maven { url 'https://jitpack.io' }
 }
 
 
@@ -81,14 +82,14 @@ publishing {
             version = '0.0.1'
         }
     }
-    repositories {
-        maven {
-            name = 'GitHubPackages'
-            url = uri('https://maven.pkg.github.com/momosetkn/liquibase-kotlin-dsl')
-            credentials {
-                username = 'momosetkn'
-                password = System.getenv('GH_PACKAGE_AUTH_TOKEN')
-            }
-        }
-    }
+//    repositories {
+//        maven {
+//            name = 'GitHubPackages'
+//            url = uri('https://maven.pkg.github.com/momosetkn/liquibase-kotlin-dsl')
+//            credentials {
+//                username = 'momosetkn'
+//                password = System.getenv('GH_PACKAGE_AUTH_TOKEN')
+//            }
+//        }
+//    }
 }
