@@ -50,6 +50,22 @@ dependencies {
     testRuntimeOnly "ch.qos.logback:logback-classic:${logbackVersion}"
 	archives "org.apache.maven.wagon:wagon-ssh:${wagonVersion}"
 	archives "org.apache.maven.wagon:wagon-ssh-external:${wagonVersion}"
+
+//    implementation(kotlin("stdlib"))
+//    implementation("org.jetbrains.kotlin:kotlin-scripting-common")
+//    implementation("org.jetbrains.kotlin:kotlin-scripting-jvm")
+//    implementation("org.jetbrains.kotlin:kotlin-scripting-jvm-host")
+//    implementation("org.jetbrains.kotlin:kotlin-scripting-dependencies")
+//    implementation("org.jetbrains.kotlin:kotlin-scripting-dependencies-maven")
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-scripting-common:${kotlinVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-scripting-jvm:${kotlinVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-scripting-jvm-host:${kotlinVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-scripting-dependencies:${kotlinVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-scripting-dependencies-maven:${kotlinVersion}"
+
+
 }
 
 
