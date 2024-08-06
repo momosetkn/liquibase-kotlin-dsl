@@ -5,7 +5,7 @@ databaseChangeLog {
         runningAs(username: 'ssaliman')
     }
 
-    changeSet(author: 'ssaliman', id: 'first-included-change-set') {
+    changeSet(author = 'ssaliman', id = 'first-included-change-set') {
         renameTable(oldTableName: 'prosaic_table_name', newTableName: 'monkey')
     }
 }

@@ -97,13 +97,13 @@ class DatabaseChangeLogDelegateIncludeTests {
      */
     @Test(expected = LiquibaseException)
     void includeWithInvalidProperty() {
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
   include(file: '\${fileName}.groovy')
-  changeSet(author: 'ssaliman', id: 'ROOT_CHANGE_SET') {
+  changeSet(author = 'ssaliman', id = 'ROOT_CHANGE_SET') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -122,13 +122,13 @@ databaseChangeLog {
      */
     @Test
     void includeWithValidPropertyAndContextFilter() {
-        def includedChangeLogFile = createFileFrom(INCLUDED_CHANGELOG_DIR, '.groovy', """
+        def includedChangeLogFile = createFileFrom(INCLUDED_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     runningAs(username: 'ssaliman')
   }
 
-  changeSet(author: 'ssaliman', id: 'included-change-set') {
+  changeSet(author = 'ssaliman', id = 'included-change-set') {
     renameTable(oldTableName: 'prosaic_table_name', newTableName: 'monkey')
   }
 }
@@ -141,14 +141,14 @@ databaseChangeLog {
         def len = includedChangeLogFile.length()
         def baseName = includedChangeLogFile.substring(0, len - 7)
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
   property(name: 'fileName', value: '${baseName}')
   include(file: '\${fileName}.groovy', context: 'override', contextFilter: 'myContext')
-  changeSet(author: 'ssaliman', id: 'ROOT_CHANGE_SET') {
+  changeSet(author = 'ssaliman', id = 'ROOT_CHANGE_SET') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -181,13 +181,13 @@ databaseChangeLog {
      */
     @Test
     void includeRelativeToWorkDir() {
-        def includedChangeLogFile = createFileFrom(INCLUDED_CHANGELOG_DIR, '.groovy', """
+        def includedChangeLogFile = createFileFrom(INCLUDED_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     runningAs(username: 'ssaliman')
   }
 
-  changeSet(author: 'ssaliman', id: 'included-change-set') {
+  changeSet(author = 'ssaliman', id = 'included-change-set') {
     renameTable(oldTableName: 'prosaic_table_name', newTableName: 'monkey')
   }
 }
@@ -195,13 +195,13 @@ databaseChangeLog {
         includedChangeLogFile = includedChangeLogFile.path // should be relative.
         includedChangeLogFile = includedChangeLogFile.replaceAll("\\\\", "/")
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
   include(file: '${includedChangeLogFile}', context: 'myContext', errorIfMissing: false)
-  changeSet(author: 'ssaliman', id: 'ROOT_CHANGE_SET') {
+  changeSet(author = 'ssaliman', id = 'ROOT_CHANGE_SET') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -240,26 +240,26 @@ databaseChangeLog {
      */
     @Test
     void includeRelativeToRelativeChangeLog() {
-        def includedChangeLogFile = createFileFrom(INCLUDED_CHANGELOG_DIR, '.groovy', """
+        def includedChangeLogFile = createFileFrom(INCLUDED_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     runningAs(username: 'ssaliman')
   }
 
-  changeSet(author: 'ssaliman', id: 'included-change-set') {
+  changeSet(author = 'ssaliman', id = 'included-change-set') {
     renameTable(oldTableName: 'prosaic_table_name', newTableName: 'monkey')
   }
 }
 """)
 
         includedChangeLogFile = includedChangeLogFile.name
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  include(file: 'include/${includedChangeLogFile}', relativeToChangelogFile: true, errorIfMissing: false, contextFilter: 'myContext')
-  changeSet(author: 'ssaliman', id: 'ROOT_CHANGE_SET') {
+  include(file: 'include/${includedChangeLogFile}', relativeToChangelogFile = true, errorIfMissing: false, contextFilter: 'myContext')
+  changeSet(author = 'ssaliman', id = 'ROOT_CHANGE_SET') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -298,26 +298,26 @@ databaseChangeLog {
      */
     @Test
     void includeRelativeToRelativeChangeLogParent() {
-        def includedChangeLogFile = createFileFrom(INCLUDED_CHANGELOG_DIR, '.groovy', """
+        def includedChangeLogFile = createFileFrom(INCLUDED_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     runningAs(username: 'ssaliman')
   }
 
-  changeSet(author: 'ssaliman', id: 'included-change-set') {
+  changeSet(author = 'ssaliman', id = 'included-change-set') {
     renameTable(oldTableName: 'prosaic_table_name', newTableName: 'monkey')
   }
 }
 """)
 
         includedChangeLogFile = includedChangeLogFile.name
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  include(file: '../tmp/include/${includedChangeLogFile}', relativeToChangelogFile: true, errorIfMissing: false, contextFilter: 'myContext')
-  changeSet(author: 'ssaliman', id: 'ROOT_CHANGE_SET') {
+  include(file: '../tmp/include/${includedChangeLogFile}', relativeToChangelogFile = true, errorIfMissing: false, contextFilter: 'myContext')
+  changeSet(author = 'ssaliman', id = 'ROOT_CHANGE_SET') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }

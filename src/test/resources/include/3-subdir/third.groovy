@@ -3,7 +3,7 @@
 // included 3rd because of the subdirectory.  It needs an ID that matches the constants in
 // DatabaseChangeLogDelegateIncludeAllTests.groovy
 databaseChangeLog {
-    changeSet(author: 'ssaliman', id: 'third-included-change-set') {
+    changeSet(author = 'ssaliman', id = 'third-included-change-set') {
         addColumn(tableName: 'monkey') {
             column(name: 'location', type: 'varchar(30)')
         }

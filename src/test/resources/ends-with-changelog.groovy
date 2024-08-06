@@ -4,8 +4,8 @@ databaseChangeLog {
     preConditions {
         dbms(type: 'mysql')
     }
-    includeAll(path: 'include', relativeToChangelogFile: true, endsWithFilter: 'sql')
-    changeSet(author: 'ssaliman', id: 'root-change-set') {
+    includeAll(path =  'include', relativeToChangelogFile = true, endsWithFilter: 'sql')
+    changeSet(author = 'ssaliman', id = 'root-change-set') {
         addColumn(tableName: 'monkey') {
             column(name: 'emotion', type: 'varchar(50)')
         }

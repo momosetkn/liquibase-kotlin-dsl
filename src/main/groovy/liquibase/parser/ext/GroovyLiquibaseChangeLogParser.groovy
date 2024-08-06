@@ -30,6 +30,10 @@ import org.liquibase.groovy.delegate.DatabaseChangeLogDelegate
  * @author Tim Berglund
  * @author Steven C. Saliman
  */
+import kotlin.script.experimental.api.*
+import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost
+
+
 class GroovyLiquibaseChangeLogParser implements ChangeLogParser {
 
     DatabaseChangeLog parse(String physicalChangeLogLocation,
@@ -46,16 +50,19 @@ class GroovyLiquibaseChangeLogParser implements ChangeLogParser {
             def changeLog = new DatabaseChangeLog(physicalChangeLogLocation)
             changeLog.setChangeLogParameters(changeLogParameters)
 
-            def binding = new Binding()
-            def shell = new GroovyShell(binding)
-
             // Parse the script, give it the local changeLog instance, give it access to root-level
             // method delegates, and call.
-            def script = shell.parse(new InputStreamReader(inputStream, "UTF8"))
-            script.metaClass.getDatabaseChangeLog = { -> changeLog }
-            script.metaClass.getResourceAccessor = { -> resourceAccessor }
-            script.metaClass.methodMissing = changeLogMethodMissing
-            script.run()
+            def s = new InputStreamReader(inputStream, "UTF8")
+
+//            def scriptingHost = new BasicJvmScriptingHost()
+//            def script = scriptingHost.eval(s)
+
+            def engine = new javax.script.ScriptEngineManager().getEngineByExtension("kts")
+            def bindings =new javax.script.SimpleBindings()
+            bindings["databaseChangeLog"] =   { -> changeLog }
+            bindings["resourceAccessor"] = { -> resourceAccessor }
+            bindings["methodMissing"] = changeLogMethodMissing
+            engine.eval(s, bindings)
 
             // The changeLog will have been populated by the script
             return changeLog

@@ -5,9 +5,9 @@ databaseChangeLog {
     preConditions {
         dbms(type: 'mysql')
     }
-    includeAll(path: 'no-such-dir', relativeToChangelogFile: true,
+    includeAll(path =  'no-such-dir', relativeToChangelogFile = true,
             errorIfMissingOrEmpty: false)
-    changeSet(author: 'ssaliman', id: 'root-change-set') {
+    changeSet(author = 'ssaliman', id = 'root-change-set') {
         addColumn(tableName: 'monkey') {
             column(name: 'emotion', type: 'varchar(50)')
         }

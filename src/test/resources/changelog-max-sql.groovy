@@ -5,8 +5,8 @@ databaseChangeLog {
         dbms(type: 'mysql')
     }
     // Remember, maxDepth is inclusive
-    includeAllSql(path: 'sql', relativeToChangelogFile: true, maxDepth: 0)
-    changeSet(author: 'ssaliman', id: 'root-change-set') {
+    includeAllSql(path =  'sql', relativeToChangelogFile = true, maxDepth: 0)
+    changeSet(author = 'ssaliman', id = 'root-change-set') {
         addColumn(tableName: 'monkey') {
             column(name: 'emotion', type: 'varchar(50)')
         }

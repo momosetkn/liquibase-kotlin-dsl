@@ -86,7 +86,7 @@ class PreconditionDelegateTests {
     @Test
     void changeSetExecutedPrecondition() {
         def preconditions = buildPreconditions {
-            changeSetExecuted(id: 'unleash-monkey', author: 'tlberglund', changeLogFile: 'changelog.xml')
+            changeSetExecuted(id = 'unleash-monkey', author = 'tlberglund', changeLogFile: 'changelog.xml')
         }
 
         assertNotNull preconditions

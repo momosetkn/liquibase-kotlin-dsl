@@ -43,7 +43,7 @@ class GroovySerializerTests {
     @Test
     void onlyGroovyFilesAreSupported() {
         def serializer = new GroovyChangeLogSerializer()
-        assertArrayEquals(['groovy'] as String[], serializer.validFileExtensions)
+        assertArrayEquals(['kts'] as String[], serializer.validFileExtensions)
     }
 
 

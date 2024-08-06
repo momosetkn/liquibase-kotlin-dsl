@@ -22,7 +22,7 @@ databaseChangeLog(logicalFilePath: '.') {
             dbms(type: 'mysql')
             runningAs(username: 'root')
             or {
-                changeSetExecuted(id: 'precondition-set', author: 'stevesaliman', changeLogFile: 'file')
+                changeSetExecuted(id = 'precondition-set', author = 'stevesaliman', changeLogFile: 'file')
                 columnExists(schemaName: 'animal', tableName: 'monkey_table', columnName: 'id')
                 tableExists(schemaName: 'animal', tableName: 'monkey_table')
                 viewExists(schemaName: 'animal', viewName: 'ape_view')
@@ -41,19 +41,19 @@ databaseChangeLog(logicalFilePath: '.') {
         }
     }
 
-    include(file: 'empty-changelog.groovy', relativeToChangelogFile: true, errorIfMissing: false)
+    include(file: 'empty-changelog.groovy', relativeToChangelogFile = true, errorIfMissing: false)
 
     // TODO: Add ehdsWithFilter and depth to this.
-    includeAll(path: 'include', relativeToChangelogFile: true, errorIfMissingOrEmpty: false)
+    includeAll(path =  'include', relativeToChangelogFile = true, errorIfMissingOrEmpty: false)
 
     //TODO figure out what properties are all about
     clobType = 0
 
-    changeSet(id: 'rollback-changeset', author: 'stevesaliman') {
+    changeSet(id = 'rollback-changeset', author = 'stevesaliman') {
         dropTable(tableName: 'monkey_table')
     }
 
-    changeSet(id: 'first', author: 'stevesaliman', dbms: 'mysql', runAlways: true, runOnChange: false, contextFilter: '', runInTransaction: true, failOnError: false) {
+    changeSet(id = 'first', author = 'stevesaliman', dbms: 'mysql', runAlways: true, runOnChange: false, contextFilter: '', runInTransaction: true, failOnError: false) {
         // Comments supported through Groovy
         comment "Liquibase can be aware of this comment"
 
@@ -81,7 +81,7 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'add-column', author: 'stevesaliman') {
+    changeSet(id = 'add-column', author = 'stevesaliman') {
         addColumn(tableName: 'monkey_table', schemaName: 'animal') {
             column(name: 'birthday', type: 'char', value: 'x', defaultValue: 'default',
                    autoIncrement: false, remarks: 'some comment') {
@@ -102,31 +102,31 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'rename-column', author: 'stevesaliman') {
+    changeSet(id = 'rename-column', author = 'stevesaliman') {
         renameColumn(schemaName: 'animal', tableName: 'monkey_table',
                      oldColumnName: 'birthday', newColumnName: 'monkey_birthday',
                      columnDataType: 'char')
     }
 
 
-//  changeSet(id: 'modify-column', author: 'stevesaliman') {
+//  changeSet(id = 'modify-column', author = 'stevesaliman') {
 //    modifyColumn(schemaName: 'animal', tableName: '') {
 //      column() { }
 //    }
 //  }
 
 
-    changeSet(id: 'drop-column', author: 'stevesaliman') {
+    changeSet(id = 'drop-column', author = 'stevesaliman') {
         dropColumn(schemaName: 'animal', tableName: 'monkey_table', columnName: '')
     }
 
 
-    changeSet(id: 'alter-sequence', author: 'stevesaliman') {
+    changeSet(id = 'alter-sequence', author = 'stevesaliman') {
         alterSequence(sequenceName: 'my_sequence', incrementBy: 1)
     }
 
 
-    changeSet(id: 'create-table', author: 'stevesaliman') {
+    changeSet(id = 'create-table', author = 'stevesaliman') {
         createTable(schemaName: 'animal', tablespace: 'zoo',
                     tableName: 'badger_table', remarks: 'Honey Badger don\'t care') {
             column(name: 'id', type: 'int', autoIncrement: true) {
@@ -137,42 +137,42 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'rename-table', author: 'stevesaliman') {
+    changeSet(id = 'rename-table', author = 'stevesaliman') {
         renameTable(schemaName: 'animal', oldTableName: 'badger_table', newTableName: 'badger')
     }
 
 
-    changeSet(id: 'drop-table', author: 'stevesaliman') {
+    changeSet(id = 'drop-table', author = 'stevesaliman') {
         dropTable(schemaName: 'animal', tableName: 'badger')
     }
 
 
-    changeSet(id: 'create-view', author: 'stevesaliman') {
+    changeSet(id = 'create-view', author = 'stevesaliman') {
         createView(schemaName: 'animal', viewName: 'monkey_emotion', replaceIfExists: true) {
             "SELECT id, emotion FROM monkey"
         }
     }
 
 
-    changeSet(id: 'rename-view', author: 'stevesaliman') {
+    changeSet(id = 'rename-view', author = 'stevesaliman') {
         renameView(schemaName: 'animal', oldViewName: 'monkey_emotion',
                    newViewName: 'monkey_emotion_vw')
     }
 
 
-    changeSet(id: 'drop-view', author: 'stevesaliman') {
+    changeSet(id = 'drop-view', author = 'stevesaliman') {
         dropView(schemaName: 'animal', viewName: 'monkey_emotion_vw')
     }
 
 
-    changeSet(id: 'merge-columns', author: 'stevesaliman') {
+    changeSet(id = 'merge-columns', author = 'stevesaliman') {
         mergeColumns(schemaName: 'animal', tableName: 'monkey_table',
                      column1Name: 'description', column2Name: 'notes',
                      finalColumnName: 'comments', finalColumnType: 'varchar(2000)', joinString: ' ')
     }
 
 
-    changeSet(id: 'create-procedire', author: 'stevesaliman') {
+    changeSet(id = 'create-procedire', author = 'stevesaliman') {
         createProcedure """
       CREATE OR REPLACE PROCEDURE testMonkey
       IS
@@ -183,52 +183,52 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'add-lookup-table', author: 'stevesaliman') {
+    changeSet(id = 'add-lookup-table', author = 'stevesaliman') {
         addLookupTable(existingTableName: 'monkey_emotion', existingColumnName: 'emotion',
                        newTableName: 'monkey_emotion', newColumnName: 'emotion',
                        constraintName: 'monkey_emotion_fk')
     }
 
 
-    changeSet(id: 'add-not-null-constraint', author: 'stevesaliman') {
+    changeSet(id = 'add-not-null-constraint', author = 'stevesaliman') {
         addNotNullConstraint(tableName: 'monkey_table', columnName: 'id', defaultNullValue: 1)
     }
 
 
-    changeSet(id: 'drop-not-null-constraint', author: 'stevesaliman') {
+    changeSet(id = 'drop-not-null-constraint', author = 'stevesaliman') {
         dropNotNullConstraint(schemaName: 'animal', tableName: 'monkey_table',
                 columnName: 'id', columnDataType: 'int')
     }
 
 
-    changeSet(id: 'add-unique-constraint', author: 'stevesaliman') {
+    changeSet(id = 'add-unique-constraint', author = 'stevesaliman') {
         addUniqueConstraint(tableName: 'monkey_table', columnNames: 'name', constraintName: 'name_uk')
     }
 
 
-    changeSet(id: 'drop-unique-constraint', author: 'stevesaliman') {
+    changeSet(id = 'drop-unique-constraint', author = 'stevesaliman') {
         dropUniqueConstraint(schemaName: 'animal', tableName: 'monkey_table', constraintName: 'name_uk')
     }
 
 
-    changeSet(id: 'create-sequence', author: 'stevesaliman') {
+    changeSet(id = 'create-sequence', author = 'stevesaliman') {
         createSequence(sequenceName: 'monkey_seq', schemaName: 'animal',
                 incrementBy: 1, minValue: 1, maxValue: 42, ordered: true, startValue: 1)
     }
 
 
-    changeSet(id: 'drop-sequence', author: 'stevesaliman') {
+    changeSet(id = 'drop-sequence', author = 'stevesaliman') {
         dropSequence(sequenceName: 'monkey_seq')
     }
 
 
-    changeSet(id: 'add-auto-increment', author: 'stevesaliman') {
+    changeSet(id = 'add-auto-increment', author = 'stevesaliman') {
         addAutoIncrement(schemaName: 'animal', tableName: 'monkey_table',
                 columnName: 'id', columnDataType: 'int')
     }
 
 
-    changeSet(id: 'add-default-value', author: 'stevesaliman') {
+    changeSet(id = 'add-default-value', author = 'stevesaliman') {
         addDefaultValue(schemaName: 'animal', tableName: 'monkey_table',
                         columnName: 'string_val', defaultValue: 'x')
         addDefaultValue(schemaName: 'animal', tableName: 'monkey_table',
@@ -240,12 +240,12 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'drop-default-value', author: 'stevesaliman') {
+    changeSet(id = 'drop-default-value', author = 'stevesaliman') {
         dropDefaultValue(schemaName: 'animal', tableName: 'monkey_table', columnName: 'date_col')
     }
 
 
-    changeSet(id: 'add-foreign-key-constraint', author: 'stevesaliman') {
+    changeSet(id = 'add-foreign-key-constraint', author = 'stevesaliman') {
         addForeignKeyConstraint(constraintName: 'monkey_emotion_fk',
                                 baseTableName: 'monkey_table',
                                 baseTableSchemaName: 'animal',
@@ -261,14 +261,14 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'drop-foreign-key', author: 'stevesaliman') {
+    changeSet(id = 'drop-foreign-key', author = 'stevesaliman') {
         dropForeignKeyConstraint(constraintName: 'monkey_emotion_fk',
                                  baseTableName: 'monkey_table',
                                  baseTableSchemaName: 'animal')
     }
 
 
-    changeSet(id: 'add-primary-key', author: 'stevesaliman') {
+    changeSet(id = 'add-primary-key', author = 'stevesaliman') {
         addPrimaryKey(schemaName: 'animal', tablespace: 'zoo',
                       tableName: 'monkey_table',
                       columnNames: 'id',
@@ -276,7 +276,7 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'drop-primary-key', author: 'stevesaliman') {
+    changeSet(id = 'drop-primary-key', author = 'stevesaliman') {
         dropPrimaryKey(schemaName: 'animal',
                        tableName: 'monkey_table',
                        constraintName: 'monkey_pk',
@@ -284,7 +284,7 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'insert-data', author: 'stevesaliman') {
+    changeSet(id = 'insert-data', author = 'stevesaliman') {
         insert(schemaName: 'animal', tableName: 'monkey_table') {
             column(name: 'string_col', value: 'x')
             column(name: 'num_col', valueNumeric: 1)
@@ -294,7 +294,7 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'load-data', author: 'stevesaliman') {
+    changeSet(id = 'load-data', author = 'stevesaliman') {
         loadData(schemaName: 'animal', tableName: 'monkey_table', file: 'monkey_data', encoding: 'UTF8|etc') {
             column(name: 'num_col', index: 2, type: 'NUMERIC')
             column(name: 'boolean_col', index: 3, type: 'BOOLEAN')
@@ -304,7 +304,7 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'load-update-data', author: 'stevesaliman') {
+    changeSet(id = 'load-update-data', author = 'stevesaliman') {
         loadUpdateData(schemaName: 'animal', tableName: 'monkey_table',
                 primaryKey: 'id', file: 'monkey_data', encoding: 'UTF-8') {
             column(name: 'num_col', index: 2, type: 'NUMERIC')
@@ -315,7 +315,7 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'update', author: 'stevesaliman') {
+    changeSet(id = 'update', author = 'stevesaliman') {
         update(schemaName: 'animal', tableName: 'monkey') {
             column(name: 'string_col', value: 'x')
             column(name: 'num_col', valueNumeric: 1)
@@ -326,24 +326,24 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'delete-data', author: 'stevesaliman') {
+    changeSet(id = 'delete-data', author = 'stevesaliman') {
         delete(schemaName: 'animal', tableName: 'monkey_table') {
             where "id=39" // optional
         }
     }
 
 
-    changeSet(id: 'tag', author: 'stevesaliman') {
+    changeSet(id = 'tag', author = 'stevesaliman') {
         tagDatabase(tag: 'monkey')
     }
 
 
-    changeSet(id: 'stop', author: 'stevesaliman') {
+    changeSet(id = 'stop', author = 'stevesaliman') {
         stop('Migration stopped because something bad went down')
     }
 
 
-    changeSet(id: 'create-index', author: 'stevesaliman') {
+    changeSet(id = 'create-index', author = 'stevesaliman') {
         createIndex(schemaName: 'animal', tablespace: 'zoo', tableName: 'monkey_table',
                 indexName: 'monkey_name_idx', unique: true) {
             column(name: 'name')
@@ -352,24 +352,24 @@ databaseChangeLog(logicalFilePath: '.') {
     }
 
 
-    changeSet(id: 'drop-index', author: 'stevesaliman') {
+    changeSet(id = 'drop-index', author = 'stevesaliman') {
         dropIndex(tableName: 'monkey_table', indexName: 'monkey_name_idx')
     }
 
 
-    changeSet(id: 'custom-sql', author: 'stevesaliman') {
+    changeSet(id = 'custom-sql', author = 'stevesaliman') {
         sql(stripComments: true, splitStatements: false, endDelimiter: ';') {
             "INSERT INTO ANIMALS (id, species, status) VALUES (1, 'monkey', 'angry')"
         }
     }
 
 
-    changeSet(id: 'sql-file', author: 'stevesaliman') {
-        sqlFile(path: '.', stripComments: true, splitStatements: '', encoding: 'UTF-8', endDelimiter: '')
+    changeSet(id = 'sql-file', author = 'stevesaliman') {
+        sqlFile(path =  '.', stripComments: true, splitStatements: '', encoding: 'UTF-8', endDelimiter: '')
     }
 
 
-//  changeSet(id: 'custom-refactoring', author: 'stevesaliman') {
+//  changeSet(id = 'custom-refactoring', author = 'stevesaliman') {
 //    customChange(class: 'net.saliman.liquibase.MonkeyRefactoring') {
 //      tableName('animal')
 //      species('monkey')
@@ -378,7 +378,7 @@ databaseChangeLog(logicalFilePath: '.') {
 //  }
 
 
-    changeSet(id: 'shell-command', author: 'stevesaliman') {
+    changeSet(id = 'shell-command', author = 'stevesaliman') {
         executeCommand(executable: '/bin/ls') {
             arg('--monkey')
             arg('--skip:1')

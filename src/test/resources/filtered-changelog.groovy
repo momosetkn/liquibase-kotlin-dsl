@@ -4,9 +4,9 @@ databaseChangeLog {
     preConditions {
         dbms(type: 'mysql')
     }
-    includeAll(path: 'include', relativeToChangelogFile: true,
+    includeAll(path =  'include', relativeToChangelogFile = true,
             filter: 'org.liquibase.groovy.helper.IncludeAllFirstOnlyFilter')
-    changeSet(author: 'ssaliman', id: 'root-change-set') {
+    changeSet(author = 'ssaliman', id = 'root-change-set') {
         addColumn(tableName: 'monkey') {
             column(name: 'emotion', type: 'varchar(50)')
         }

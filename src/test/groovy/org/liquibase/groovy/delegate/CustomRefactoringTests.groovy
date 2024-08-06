@@ -447,7 +447,7 @@ class CustomRefactoringTests extends ChangeSetTests {
     @Test
     void sqlFileEmpty() {
         buildChangeSet {
-            sqlFile(path: 'src/test/changelog/file.sql')
+            sqlFile(path =  'src/test/changelog/file.sql')
         }
 
         assertEquals 0, changeSet.rollback.changes.size()
@@ -473,8 +473,8 @@ class CustomRefactoringTests extends ChangeSetTests {
     @Test
     void sqlFileFull() {
         buildChangeSet {
-            sqlFile(path: 'src/test/changelog/file.sql',
-                    relativeToChangelogFile: false,
+            sqlFile(path =  'src/test/changelog/file.sql',
+                    relativeToChangelogFile = false,
                     stripComments: true,
                     splitStatements: false,
                     encoding: 'UTF-8',

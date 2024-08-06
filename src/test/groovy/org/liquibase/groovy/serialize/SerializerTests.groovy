@@ -39,7 +39,7 @@ class SerializerTests {
         resourceAccessor = new DirectoryResourceAccessor(new File('.'))
         serializerFactory = ChangeLogSerializerFactory.instance
         ChangeLogSerializerFactory.getInstance().register(new GroovyChangeLogSerializer())
-        serializer = serializerFactory.getSerializer('groovy')
+        serializer = serializerFactory.getSerializer('kts')
     }
 
 

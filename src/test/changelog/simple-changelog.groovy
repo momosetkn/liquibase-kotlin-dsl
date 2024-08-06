@@ -14,7 +14,7 @@
 
 databaseChangeLog(logicalFilePath: '.', contextFilter: 'myContext') {
 
-    changeSet(author: 'stevesaliman', id: 'change-set-001') {
+    changeSet(author = 'stevesaliman', id = 'change-set-001') {
 
     }
 

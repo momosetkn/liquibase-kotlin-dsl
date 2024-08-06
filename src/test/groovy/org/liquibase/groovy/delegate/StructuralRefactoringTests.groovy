@@ -279,8 +279,8 @@ END;"""
                     schemaName: 'schema',
                     procedureName: 'procedure',
                     dbms: 'mysql',
-                    path: 'mypath',
-                    relativeToChangelogFile: false,
+                    path =  'mypath',
+                    relativeToChangelogFile = false,
                     encoding: 'utf8',
                     replaceIfExists: true) { sql }
         }
@@ -503,9 +503,9 @@ END;"""
                     remarks: 'monkey see, monkey do',
                     replaceIfExists: true,
                     fullDefinition: false,
-                    path: 'monkey_view.sql',
+                    path =  'monkey_view.sql',
                     encoding: 'UTF-8',
-                    relativeToChangelogFile: false
+                    relativeToChangelogFile = false
             ) {
                 "SELECT * FROM monkey WHERE state='angry'"
             }
@@ -544,9 +544,9 @@ END;"""
                     remarks: 'monkey see, monkey do',
                     replaceIfExists: false,
                     fullDefinition: false,
-                    path: 'monkey_view.sql',
+                    path =  'monkey_view.sql',
                     encoding: 'UTF-8',
-                    relativeToChangelogFile: true
+                    relativeToChangelogFile = true
             )
         }
 

@@ -102,13 +102,13 @@ class DatabaseChangeLogDelegateIncludeAllTests {
      */
     @Test(expected = ChangeLogParseException)
     void includeAllWithInvalidProperty() {
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: '\${includedChangeLogDir}')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  includeAll(path =  '\${includedChangeLogDir}')
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -131,14 +131,14 @@ databaseChangeLog {
     void includeAllWithValidToken() {
         def includedChangeLogDir = createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
   property(name: 'includeDir', value: '${includedChangeLogDir}')
-  includeAll(path: '\${includeDir}')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  includeAll(path =  '\${includeDir}')
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -179,13 +179,13 @@ databaseChangeLog {
     void includeAllRelativeToWorkDir() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: '${INCLUDED_CHANGELOG_PATH}', context: 'override', contextFilter: 'myContext')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  includeAll(path =  '${INCLUDED_CHANGELOG_PATH}', context: 'override', contextFilter: 'myContext')
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -224,13 +224,13 @@ databaseChangeLog {
     @Test
     void includeAllRelativeToRelativeChangeLog() {
         createIncludedChangeLogFiles()
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: 'include', relativeToChangelogFile: true, context: 'myContext')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  includeAll(path =  'include', relativeToChangelogFile = true, context: 'myContext')
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -270,13 +270,13 @@ databaseChangeLog {
     @Test
     void includeAllRelativeToRelativeChangeLogParent() {
         createIncludedChangeLogFiles()
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: '../tmp/include', relativeToChangelogFile: true)
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  includeAll(path =  '../tmp/include', relativeToChangelogFile = true)
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -316,14 +316,14 @@ databaseChangeLog {
     void includeAllValidWithFilter() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
+  includeAll(path =  '${INCLUDED_CHANGELOG_PATH}',
              filter: 'org.liquibase.groovy.helper.IncludeAllFirstOnlyFilter')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -354,14 +354,14 @@ databaseChangeLog {
     void includeAllValidWithInvalidFilter() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
+  includeAll(path =  '${INCLUDED_CHANGELOG_PATH}',
              filter: 'org.liquibase.groovy.helper.NoSuchClass')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -380,14 +380,14 @@ databaseChangeLog {
     void includeAllValidWithInappropriateFilter() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
+  includeAll(path =  '${INCLUDED_CHANGELOG_PATH}',
              filter: 'org.liquibase.groovy.helper.ReversingComparator')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -407,14 +407,14 @@ databaseChangeLog {
     void includeAllEndsWithFilter() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
+  includeAll(path =  '${INCLUDED_CHANGELOG_PATH}',
              endsWithFilter: 'sql')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -447,14 +447,14 @@ databaseChangeLog {
     void includeAllWithComparator() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
+  includeAll(path =  '${INCLUDED_CHANGELOG_PATH}',
              resourceComparator: 'org.liquibase.groovy.helper.ReversingComparator')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -486,14 +486,14 @@ databaseChangeLog {
     void includeAllWithInvalidComparator() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
+  includeAll(path =  '${INCLUDED_CHANGELOG_PATH}',
              resourceComparator: 'org.liquibase.groovy.helper.NoSuchClass')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -512,14 +512,14 @@ databaseChangeLog {
     void includeAllWithInappropriateComparator() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
+  includeAll(path =  '${INCLUDED_CHANGELOG_PATH}',
              resourceComparator: 'org.liquibase.groovy.helper.IncludeAllFirstOnlyFilter')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -536,7 +536,7 @@ databaseChangeLog {
     @Test(expected = LiquibaseException)
     void includeAllInvalidPath() {
         buildChangeLog {
-            includeAll(path: 'invalid')
+            includeAll(path =  'invalid')
         }
     }
 
@@ -548,7 +548,7 @@ databaseChangeLog {
     @Test
     void includeAllInvalidPathIgnoreError() {
         def changeLog = buildChangeLog {
-            includeAll(path: 'invalid', errorIfMissingOrEmpty: false)
+            includeAll(path =  'invalid', errorIfMissingOrEmpty: false)
         }
         assertNotNull changeLog
         def changeSets = changeLog.changeSets
@@ -564,9 +564,9 @@ databaseChangeLog {
     @Test(expected = LiquibaseException)
     void includeAllEmptyPath() {
         // This file should be excluded by the resource filter.
-        createFileFrom(INCLUDED_CHANGELOG_DIR, 'second', '.groovy', """
+        createFileFrom(INCLUDED_CHANGELOG_DIR, 'second', '.kts', """
 databaseChangeLog {
-  changeSet(author: 'ssaliman', id: '${SECOND_INCLUDED_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${SECOND_INCLUDED_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(30)')
     }
@@ -574,14 +574,14 @@ databaseChangeLog {
 }
 """)
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: '${INCLUDED_CHANGELOG_PATH}',
+  includeAll(path =  '${INCLUDED_CHANGELOG_PATH}',
              filter: 'org.liquibase.groovy.helper.IncludeAllFirstOnlyFilter')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -601,23 +601,23 @@ databaseChangeLog {
     @Test
     void includeAllEmptyPathIgnoreError() {
         // This file should be excluded by the resource filter.
-        createFileFrom(INCLUDED_CHANGELOG_DIR, 'second', '.groovy', """
+        createFileFrom(INCLUDED_CHANGELOG_DIR, 'second', '.kts', """
 databaseChangeLog {
-  changeSet(author: 'ssaliman', id: '${SECOND_INCLUDED_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${SECOND_INCLUDED_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(30)')
     }
   }
 }
 """)
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
   preConditions {
     dbms(type: 'mysql')
   }
-  includeAll(path: '${INCLUDED_CHANGELOG_PATH}', errorIfMissingOrEmpty: false,
+  includeAll(path =  '${INCLUDED_CHANGELOG_PATH}', errorIfMissingOrEmpty: false,
              filter: 'org.liquibase.groovy.helper.IncludeAllFirstOnlyFilter')
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -797,10 +797,10 @@ databaseChangeLog {
     void includeAllRelToWorkDirMinDepth() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
-  includeAll(path: '${INCLUDED_CHANGELOG_DIR}', minDepth: 1)
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  includeAll(path =  '${INCLUDED_CHANGELOG_DIR}', minDepth: 1)
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -834,10 +834,10 @@ databaseChangeLog {
     void includeAllRelToWorkDirMaxDepth() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
-  includeAll(path: '${INCLUDED_CHANGELOG_DIR}', maxDepth: 0)
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  includeAll(path =  '${INCLUDED_CHANGELOG_DIR}', maxDepth: 0)
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -875,10 +875,10 @@ databaseChangeLog {
     void includeAllRelToChangeLogMinDepth() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
-  includeAll(path: 'include', relativeToChangelogFile: true, minDepth: 1)
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  includeAll(path =  'include', relativeToChangelogFile = true, minDepth: 1)
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -912,10 +912,10 @@ databaseChangeLog {
     void includeAllRelToChangeLogMaxDepth() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
-  includeAll(path: 'include', relativeToChangelogFile: true, maxDepth: 0)
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  includeAll(path =  'include', relativeToChangelogFile = true, maxDepth: 0)
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -953,10 +953,10 @@ databaseChangeLog {
     void includeAllRelToChangeLogParentMinDepth() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
-  includeAll(path: '../include', relativeToChangelogFile: true, minDepth: 1)
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  includeAll(path =  '../include', relativeToChangelogFile = true, minDepth: 1)
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -990,10 +990,10 @@ databaseChangeLog {
     void includeAllRelToChangeLogParentMaxDepth() {
         createIncludedChangeLogFiles()
 
-        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def rootChangeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog {
-  includeAll(path: '../include', relativeToChangelogFile: true, maxDepth: 0)
-  changeSet(author: 'ssaliman', id: '${ROOT_CHANGE_SET}') {
+  includeAll(path =  '../include', relativeToChangelogFile = true, maxDepth: 0)
+  changeSet(author = 'ssaliman', id = '${ROOT_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(50)')
     }
@@ -1111,21 +1111,21 @@ databaseChangeLog {
      * @return the full path of the directory where the files were placed.
      */
     private String createIncludedChangeLogFiles() {
-        createFileFrom(INCLUDED_CHANGELOG_DIR, '1-first', '.groovy', """
+        createFileFrom(INCLUDED_CHANGELOG_DIR, '1-first', '.kts', """
 databaseChangeLog {
   preConditions {
     runningAs(username: 'ssaliman')
   }
 
-  changeSet(author: 'ssaliman', id: '${FIRST_INCLUDED_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${FIRST_INCLUDED_CHANGE_SET}') {
     renameTable(oldTableName: 'prosaic_table_name', newTableName: 'monkey')
   }
 }
 """)
 
-        createFileFrom(INCLUDED_CHANGELOG_DIR, '2-second', '.groovy', """
+        createFileFrom(INCLUDED_CHANGELOG_DIR, '2-second', '.kts', """
 databaseChangeLog {
-  changeSet(author: 'ssaliman', id: '${SECOND_INCLUDED_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${SECOND_INCLUDED_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'emotion', type: 'varchar(30)')
     }
@@ -1141,9 +1141,9 @@ alter table monkey add gender varchar(1);
 """)
 
         // alphabetically last, but in a "3-" subdir, placing it third.
-        createFileFrom(INCLUDED_CHANGELOG_SUB_DIR, 'third', '.groovy', """
+        createFileFrom(INCLUDED_CHANGELOG_SUB_DIR, 'third', '.kts', """
 databaseChangeLog {
-  changeSet(author: 'ssaliman', id: '${THIRD_INCLUDED_CHANGE_SET}') {
+  changeSet(author = 'ssaliman', id = '${THIRD_INCLUDED_CHANGE_SET}') {
     addColumn(tableName: 'monkey') {
       column(name: 'location', type: 'varchar(30)')
     }

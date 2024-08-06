@@ -135,7 +135,7 @@ class DatabaseChangeLogDelegateTests {
 
     @Test(expected = ChangeLogParseException)
     void parsingEmptyDatabaseChangeLogFails() {
-        def changeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        def changeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
 databaseChangeLog()
 """)
         def parser = parserFactory.getParser(changeLogFile.path, resourceAccessor)
@@ -145,7 +145,7 @@ databaseChangeLog()
 
     @Test
     void parsingDatabaseChangeLogAsProperty() {
-        File changeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.groovy', """
+        File changeLogFile = createFileFrom(TMP_CHANGELOG_DIR, '.kts', """
     databaseChangeLog = {
     }
     """)
@@ -221,8 +221,8 @@ databaseChangeLog()
         params.set('myParam', 'myValue')
 
         def changeLog = buildChangeLog(params) {
-            changeSet(id: 'monkey-change',
-                      author: 'stevesaliman',
+            changeSet(id = 'monkey-change',
+                      author = 'stevesaliman',
                       dbms: 'mysql',
                       runAlways: true,
                       runOnChange: true,
@@ -282,8 +282,8 @@ databaseChangeLog()
     @Test
     void changeSetFullLogicalFilePath() {
         def changeLog = buildChangeLog {
-            changeSet(id: 'monkey-change',
-                      author: 'stevesaliman',
+            changeSet(id = 'monkey-change',
+                      author = 'stevesaliman',
                       dbms: 'mysql',
                       runAlways: true,
                       runOnChange: true,
@@ -333,8 +333,8 @@ databaseChangeLog()
     void changeSetFullWithProperties() {
         def changeLog = buildChangeLog {
             property(name: 'authName', value: 'stevesaliman')
-            changeSet(id: 'monkey-change',
-                      author: '\${authName}',
+            changeSet(id = 'monkey-change',
+                      author = '\${authName}',
                       dbms: 'mysql',
                       runAlways: true,
                       runOnChange: true,
@@ -380,8 +380,8 @@ databaseChangeLog()
     @Test(expected = ChangeLogParseException)
     void changeSetInvalidAttribute() {
         buildChangeLog {
-            changeSet(id: 'monkey-change',
-                      author: 'stevesaliman',
+            changeSet(id = 'monkey-change',
+                      author = 'stevesaliman',
                       dbms: 'mysql',
                       runAlways: false,
                       runOnChange: true,
@@ -402,8 +402,8 @@ databaseChangeLog()
     @Test(expected = ChangeLogParseException)
     void changeSetInvalidQuotingStrategy() {
         buildChangeLog {
-            changeSet(id: 'monkey-change',
-                      author: 'stevesaliman',
+            changeSet(id = 'monkey-change',
+                      author = 'stevesaliman',
                       dbms: 'mysql',
                       runAlways: false,
                       runOnChange: true,
@@ -603,7 +603,7 @@ emotion=angry
         propertyFile = propertyFile.substring(ROOT_CHANGELOG_PATH.length() +1)
 
         def changeLog = buildChangeLog {
-            property(file: "${propertyFile}", relativeToChangelogFile: true)
+            property(file: "${propertyFile}", relativeToChangelogFile = true)
         }
 
 
@@ -635,7 +635,7 @@ emotion=angry
         propertyFile = propertyFile.replaceAll("\\\\", "/")
 
         def changeLog = buildChangeLog {
-            property(file: "${propertyFile}", relativeToChangelogFile: false, dbms: 'mysql', contextFilter: 'test', labels: 'test_label')
+            property(file: "${propertyFile}", relativeToChangelogFile = false, dbms: 'mysql', contextFilter: 'test', labels: 'test_label')
         }
 
         // change log parameters are not exposed through the API, so get them using reflection.
@@ -665,7 +665,7 @@ emotion=angry
             removeChangeSetProperty(change: 'addColumn',
                                     dbms: 'h2',
                                     remove: 'afterColumn',
-                                    invalid: 'value')
+                                    invalid = 'value')
         }
     }
 

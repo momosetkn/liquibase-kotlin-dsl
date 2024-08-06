@@ -320,7 +320,7 @@ ALTER TABLE monkey_table DROP COLUMN angry;"""
             addColumn(tableName: 'monkey') {
                 column(name: 'diet', type: 'varchar(30)')
             }
-            rollback(id: CHANGESET_ID, changeSetAuthor: CHANGESET_AUTHOR)
+            rollback(id = CHANGESET_ID, changeSetAuthor: CHANGESET_AUTHOR)
         }
 
     }
@@ -335,7 +335,7 @@ ALTER TABLE monkey_table DROP COLUMN angry;"""
             addColumn(tableName: 'monkey') {
                 column(name: 'diet', type: 'varchar(30)')
             }
-            rollback(changeSetId: CHANGESET_ID, author: CHANGESET_AUTHOR)
+            rollback(changeSetId: CHANGESET_ID, author = CHANGESET_AUTHOR)
         }
 
     }
