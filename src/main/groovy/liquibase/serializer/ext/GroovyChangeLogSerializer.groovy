@@ -323,7 +323,7 @@ ${serializedChange} {
                         break
                 }
                 if ( propertyString ) {
-                    properties << "${propertyName}: ${propertyString}"
+                    properties << "${propertyName} = ${propertyString}"
                 }
             }
         }
