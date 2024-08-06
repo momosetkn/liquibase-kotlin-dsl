@@ -79,7 +79,7 @@ publishing {
             artifact tasks.sourcesJar
             groupId = 'com.github.momosetkn'
             artifactId = 'liquibase-kotlin-dsl'
-            version = '0.0.1'
+            version = '0.0.2'
         }
     }
 //    repositories {
