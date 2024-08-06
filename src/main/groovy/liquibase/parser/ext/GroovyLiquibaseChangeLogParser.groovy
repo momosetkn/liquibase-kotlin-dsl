@@ -72,7 +72,7 @@ class GroovyLiquibaseChangeLogParser implements ChangeLogParser {
 
 
     boolean supports(String changeLogFile, ResourceAccessor resourceAccessor) {
-        changeLogFile.endsWith('.groovy')
+        changeLogFile.endsWith('.kts')
     }
 
 
