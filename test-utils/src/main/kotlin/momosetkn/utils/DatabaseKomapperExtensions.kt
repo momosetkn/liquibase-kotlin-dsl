@@ -4,8 +4,8 @@ import org.komapper.jdbc.JdbcDatabase
 
 object DatabaseKomapperExtensions {
     fun DatabaseServer.komapperDb() = JdbcDatabase(
-        url = this.startedContainer.jdbcUrl,
-        user = this.startedContainer.username,
-        password = this.startedContainer.password,
+        url = this.startedServer.jdbcUrl,
+        user = this.startedServer.username,
+        password = this.startedServer.password,
     )
 }

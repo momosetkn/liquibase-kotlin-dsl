@@ -9,7 +9,7 @@ import liquibase.exception.LiquibaseException
 import liquibase.resource.ResourceAccessor
 import java.io.Writer
 
-internal class ExtendedLiquibase(
+class ExtendedLiquibase(
     changeLogFile: String,
     database: Database,
     resourceAccessor: ResourceAccessor = Scope.getCurrentScope().resourceAccessor,

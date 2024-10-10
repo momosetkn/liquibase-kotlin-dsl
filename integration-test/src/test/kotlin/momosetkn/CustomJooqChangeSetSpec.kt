@@ -10,7 +10,6 @@ import momosetkn.liquibase.kotlin.change.custom.jooq.customJooqChange
 import momosetkn.utils.DDLUtils.sql
 import momosetkn.utils.DDLUtils.toMainDdl
 import momosetkn.utils.DatabaseKomapperExtensions.komapperDb
-import momosetkn.utils.DatabaseServer
 import momosetkn.utils.InterchangeableChangeLog
 import momosetkn.utils.set
 import momosetkn.utils.shouldMatchWithoutLineBreaks
@@ -22,7 +21,7 @@ import java.util.UUID
 
 class CustomJooqChangeSetSpec : FunSpec({
     beforeEach {
-        DatabaseServer.startAndClear()
+        SharedResources.targetDatabaseServer.startAndClear()
     }
     val client = LiquibaseCommandClient {
         global {
@@ -34,12 +33,12 @@ class CustomJooqChangeSetSpec : FunSpec({
 
     context("forwardOnly") {
         fun subject() {
-            val container = DatabaseServer.startedContainer
+            val server = SharedResources.targetDatabaseServer.startedServer
             client.update(
-                driver = container.driver,
-                url = container.jdbcUrl,
-                username = container.username,
-                password = container.password,
+                driver = server.driver,
+                url = server.jdbcUrl,
+                username = server.username,
+                password = server.password,
                 changelogFile = InterchangeableChangeLog::class.qualifiedName!!,
             )
         }
@@ -77,7 +76,7 @@ class CustomJooqChangeSetSpec : FunSpec({
         }
         test("can migrate") {
             subject()
-            DatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
+            SharedResources.targetDatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
                 """
                     CREATE CACHED TABLE "PUBLIC"."COMPANY2"(
                         "ID" UUID NOT NULL,
@@ -86,7 +85,7 @@ class CustomJooqChangeSetSpec : FunSpec({
                     ALTER TABLE "PUBLIC"."COMPANY2" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_A" PRIMARY KEY("ID");
                 """.trimIndent()
             )
-            val db = DatabaseServer.komapperDb()
+            val db = SharedResources.targetDatabaseServer.komapperDb()
             val query = QueryDsl.from(c).single()
             val item = db.runQuery(query)
             item.name shouldBe "CreatedByJooq_name"
@@ -96,19 +95,19 @@ class CustomJooqChangeSetSpec : FunSpec({
     context("forward and rollback") {
         val startedTag = "started"
         fun subject() {
-            val container = DatabaseServer.startedContainer
+            val server = SharedResources.targetDatabaseServer.startedServer
             client.update(
-                driver = container.driver,
-                url = container.jdbcUrl,
-                username = container.username,
-                password = container.password,
+                driver = server.driver,
+                url = server.jdbcUrl,
+                username = server.username,
+                password = server.password,
                 changelogFile = InterchangeableChangeLog::class.qualifiedName!!,
             )
             client.rollback(
-                driver = container.driver,
-                url = container.jdbcUrl,
-                username = container.username,
-                password = container.password,
+                driver = server.driver,
+                url = server.jdbcUrl,
+                username = server.username,
+                password = server.password,
                 changelogFile = InterchangeableChangeLog::class.qualifiedName!!,
                 tag = startedTag,
             )
@@ -155,7 +154,7 @@ class CustomJooqChangeSetSpec : FunSpec({
             }
             test("can rollback") {
                 subject()
-                DatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql("")
+                SharedResources.targetDatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql("")
             }
         }
         context("rollback arg is none") {

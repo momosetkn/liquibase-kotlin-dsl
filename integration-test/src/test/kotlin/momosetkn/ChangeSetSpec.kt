@@ -10,7 +10,6 @@ import momosetkn.liquibase.kotlin.dsl.ChangeSetDsl
 import momosetkn.utils.DDLUtils.sql
 import momosetkn.utils.DDLUtils.toMainDdl
 import momosetkn.utils.DatabaseKomapperExtensions.komapperDb
-import momosetkn.utils.DatabaseServer
 import momosetkn.utils.InterchangeableChangeLog
 import momosetkn.utils.set
 import momosetkn.utils.shouldMatchWithoutLineBreaks
@@ -20,7 +19,7 @@ import org.komapper.core.dsl.query.single
 
 class ChangeSetSpec : FunSpec({
     beforeEach {
-        DatabaseServer.startAndClear()
+        SharedResources.targetDatabaseServer.startAndClear()
     }
     val client = LiquibaseCommandClient {
         global {
@@ -30,12 +29,12 @@ class ChangeSetSpec : FunSpec({
         }
     }
     fun subject() {
-        val container = DatabaseServer.startedContainer
+        val server = SharedResources.targetDatabaseServer.startedServer
         client.update(
-            driver = container.driver,
-            url = container.jdbcUrl,
-            username = container.username,
-            password = container.password,
+            driver = server.driver,
+            url = server.jdbcUrl,
+            username = server.username,
+            password = server.password,
             changelogFile = InterchangeableChangeLog::class.qualifiedName!!,
         )
     }
@@ -49,7 +48,7 @@ class ChangeSetSpec : FunSpec({
         }
         test("can migrate") {
             subject()
-            val db = DatabaseServer.komapperDb()
+            val db = SharedResources.targetDatabaseServer.komapperDb()
             val d = Meta.databasechangelog
             val result = db.runQuery {
                 QueryDsl.from(d).single()
@@ -58,7 +57,7 @@ class ChangeSetSpec : FunSpec({
         }
     }
     context("preConditions") {
-        fun databaseUsername() = DatabaseServer.startedContainer.username
+        fun databaseUsername() = SharedResources.targetDatabaseServer.startedServer.username
         context("postgresql and <currentUser>") {
             InterchangeableChangeLog.set {
                 changeSet(author = "user", id = "100") {
@@ -73,7 +72,7 @@ class ChangeSetSpec : FunSpec({
             }
             test("can migrate") {
                 subject()
-                DatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
+                SharedResources.targetDatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
                     """
                     CREATE CACHED TABLE "PUBLIC"."COMPANY"(
                         "ID" UUID NOT NULL,
@@ -82,7 +81,7 @@ class ChangeSetSpec : FunSpec({
                     ALTER TABLE "PUBLIC"."COMPANY" ADD CONSTRAINT "PUBLIC"."PK_COMPANY" PRIMARY KEY("ID");
                     """.trimIndent()
                 )
-                val db = DatabaseServer.komapperDb()
+                val db = SharedResources.targetDatabaseServer.komapperDb()
                 val d = Meta.databasechangelog
                 val result = db.runQuery {
                     QueryDsl.from(d).single()
@@ -104,8 +103,8 @@ class ChangeSetSpec : FunSpec({
             }
             test("can migrate") {
                 subject()
-                DatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql("")
-                val db = DatabaseServer.komapperDb()
+                SharedResources.targetDatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql("")
+                val db = SharedResources.targetDatabaseServer.komapperDb()
                 val d = Meta.databasechangelog
                 val result = db.runQuery {
                     QueryDsl.from(d).single()
@@ -135,7 +134,7 @@ class ChangeSetSpec : FunSpec({
             }
             test("can migrate") {
                 subject()
-                DatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
+                SharedResources.targetDatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
                     """
                     CREATE CACHED TABLE "PUBLIC"."COMPANY"(
                         "ID" UUID NOT NULL,
@@ -144,7 +143,7 @@ class ChangeSetSpec : FunSpec({
                     ALTER TABLE "PUBLIC"."COMPANY" ADD CONSTRAINT "PUBLIC"."PK_COMPANY" PRIMARY KEY("ID");
                     """.trimIndent()
                 )
-                val db = DatabaseServer.komapperDb()
+                val db = SharedResources.targetDatabaseServer.komapperDb()
                 val d = Meta.databasechangelog
                 val result = db.runQuery {
                     QueryDsl.from(d).single()
@@ -199,7 +198,7 @@ class ChangeSetSpec : FunSpec({
         }
         test("can migrate") {
             subject()
-            DatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
+            SharedResources.targetDatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
                 """
                     CREATE CACHED TABLE "PUBLIC"."TABLE_A"(
                         "ID" INTEGER NOT NULL,
@@ -225,7 +224,7 @@ class ChangeSetSpec : FunSpec({
         }
         test("can migrate") {
             subject()
-            DatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
+            SharedResources.targetDatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
                 """
                     CREATE CACHED TABLE "PUBLIC"."TABLE_A"(
                         "ID" INTEGER NOT NULL,
@@ -247,7 +246,7 @@ class ChangeSetSpec : FunSpec({
         }
         test("can migrate") {
             subject()
-            DatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
+            SharedResources.targetDatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
                 """
                    CREATE CACHED TABLE "PUBLIC".U&"\5bff\53f8"(
                        U&"\ff49\ff44" INTEGER NOT NULL,
@@ -285,7 +284,7 @@ class ChangeSetSpec : FunSpec({
             shouldThrow<CommandExecutionException> {
                 subject()
             }
-            DatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
+            SharedResources.targetDatabaseServer.generateDdl().toMainDdl() shouldMatchWithoutLineBreaks sql(
                 """
                     CREATE CACHED TABLE "PUBLIC"."COMPANY"(
                         "ID" UUID NOT NULL,
@@ -304,7 +303,7 @@ class ChangeSetSpec : FunSpec({
         }
         test("can migrate") {
             subject()
-            val db = DatabaseServer.komapperDb()
+            val db = SharedResources.targetDatabaseServer.komapperDb()
             val d = Meta.databasechangelog
             val result = db.runQuery {
                 QueryDsl.from(d).single()
